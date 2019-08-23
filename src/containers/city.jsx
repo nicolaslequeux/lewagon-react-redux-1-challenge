@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 
 class City extends Component {
 
     handleClick = () => {
-        // this.props.setActiveCity(this.props.city);
+        this.props.setActiveCity(this.props.city);
+        console.log("click", this.props.city.name);
     }
-
 
     render() {
         return (
@@ -17,6 +20,22 @@ class City extends Component {
 
 }
 
+
+
 import { setActiveCity } from '../actions/index';
 
-export default City;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        { setActiveCity: setActiveCity},
+        dispatch
+    )
+}
+
+// function mapReduxStateToProps(reduxState) {
+//     return {
+//         setActiveCity: reduxState.setActiveCity
+//     }
+// }
+
+
+export default connect(null, mapDispatchToProps)(City);
